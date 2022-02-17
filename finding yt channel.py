@@ -35,5 +35,5 @@ class ytChannelFinder:
 wr = ytChannelFinder()
 wr.start()
 wr.closePoppingElems()
-# wr.findChannel('wrobl_ew/ski')
+# wr.findChannel('wrobl_ewski')
 # wr.closeBrowser()
