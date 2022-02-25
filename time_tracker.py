@@ -1,7 +1,5 @@
-import time, datetime
-import win32gui
-import json
-import os.path
+import time, datetime, win32gui, json, os.path
+
 
 
 def time_convert(sec):
@@ -11,20 +9,22 @@ def time_convert(sec):
   mins = mins % 60
   return "{0}h {1}m {2}s".format(int(hours),int(mins),sec)
 
-def check_if_file_exist():
-	with open(get_file_name(), "r") as read_file:
-		data = json.load(read_file)
 
-	print(data)
+def check_if_file_exist():
+	if os.path.exists(get_file_name()):
+		with open(get_file_name(), "r") as read_file:
+			all_windows = json.load(read_file)
+
+		print(f"data loaded from file: {get_file_name()}")
+		return all_windows
+
 
 def get_file_name():
 	today = datetime.datetime.now()
-	f_name = f'{today.year}_{today.month}_{today.day}_{today.minute}.json'
+	f_name = f'{today.year}_{today.month}_{today.day}.json'
 	return f_name
 
 def to_json_file(dictionary):
-	# file_exists = os.path.exists(f"{f_name}.json")
-	# print(f"file_exists = {file_exists}")
 	# Serializing json
 	json_object = json.dumps(dictionary, indent = 4)
 	with open(get_file_name(), "w") as outfile:
@@ -35,7 +35,7 @@ all_windows = {}
 active_window_name = ''
 stopperStatus = ''
 
-# check_if_file_exist()
+check_if_file_exist()
 while True:
 	new_window_name = win32gui.GetWindowText(win32gui.GetForegroundWindow())
 	
@@ -63,3 +63,6 @@ while True:
 	time.sleep(1)
 
 
+# todo
+# exe
+# error check_if_file_exist() or to_json_file(all_windows)
