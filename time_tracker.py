@@ -10,7 +10,7 @@ def time_convert(sec):
   return "{0}h {1}m {2}s".format(int(hours),int(mins),sec)
 
 
-def check_if_file_exist():
+def if_file_exist():
 	if os.path.exists(get_file_name()):
 		with open(get_file_name(), "r") as read_file:
 			all_windows = json.load(read_file)
@@ -35,7 +35,7 @@ all_windows = {}
 active_window_name = ''
 stopperStatus = ''
 
-check_if_file_exist()
+all_windows = if_file_exist()
 while True:
 	new_window_name = win32gui.GetWindowText(win32gui.GetForegroundWindow())
 	
@@ -65,4 +65,3 @@ while True:
 
 # todo
 # exe
-# error check_if_file_exist() or to_json_file(all_windows)
