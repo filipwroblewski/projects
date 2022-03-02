@@ -16,7 +16,10 @@ def if_file_exist():
 			all_windows = json.load(read_file)
 
 		print(f"data loaded from file: {get_file_name()}")
-		return all_windows
+	else:
+		all_windows = {}
+
+	return all_windows
 
 
 def get_file_name():
@@ -36,6 +39,7 @@ active_window_name = ''
 stopperStatus = ''
 
 all_windows = if_file_exist()
+
 while True:
 	new_window_name = win32gui.GetWindowText(win32gui.GetForegroundWindow())
 	
@@ -44,7 +48,6 @@ while True:
 			stopperStatus = 'end'
 			end_time = time.time()
 			time_lapsed = end_time - start_time
-			# print(active_window_name, round(time_lapsed))
 
 			if active_window_name in all_windows:
 				all_windows[active_window_name] += round(time_lapsed)
